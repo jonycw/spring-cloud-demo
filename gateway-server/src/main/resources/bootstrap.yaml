@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    nacos:
+      # Nacos 服务发现与注册配置
+      discovery:
+        server-addr: xx.xxx.xxx.xxx:8885
+      config:
+        server-addr: xx.xxx.xxx.xxx:8885
+        file-extension: yaml
+        group: CLOUD_DEMO
+        data-id: gateway-service.yaml
+        refresh: true
+    gateway:
+      locator:
+        enabled: true
+      routes:
+        - id: cloud-auth
+          uri: http://localhost:8085
+          predicates:
+          - Path=/auth/**
+          filter:
+          - SwaggerHeaderFilter
+          - StripPrefix = 1
+        - id: cloud-order
+          uri: http://localhost:8086
+          predicates:
+          - Path=/order/**
+          filter:
+          - SwaggerHeaderFilter
+          - StripPrefix = 1

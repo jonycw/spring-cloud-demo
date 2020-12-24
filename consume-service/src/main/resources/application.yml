@@ -1,0 +1,19 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: consume-service
+  main:
+    # Spring Boot 2.1 需要设定
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      # Nacos 服务发现与注册配置
+      discovery:
+        server-addr: xx.xx.xx.xx:8885
+      config:
+        server-addr: xx.xx.xx.xx:8885
+        file-extension: yaml
+        group: CLOUD_DEMO
+        data-id: consume-service.yaml
+        refresh: true
