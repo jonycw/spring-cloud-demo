@@ -1,30 +1,50 @@
+dubbo:
+  protocol:
+    # dubbo 协议
+    name: dubbo
+    # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
+    port: -1
+  registry:
+    # 挂载到 Spring Cloud 注册中心
+    address: spring-cloud://192.168.42.118:8885
 spring:
   cloud:
     nacos:
       # Nacos 服务发现与注册配置
       discovery:
-        server-addr: xx.xxx.xxx.xxx:8885
+        server-addr: 192.168.42.118:8885
       config:
-        server-addr: xx.xxx.xxx.xxx:8885
+        server-addr: 192.168.42.118:8885
         file-extension: yaml
         group: CLOUD_DEMO
         data-id: gateway-service.yaml
         refresh: true
     gateway:
-      locator:
-        enabled: true
+      discovery:
+        locator:
+          enabled: true  # 开启从注册中心动态创建路由的功能，利用微服务名称进行路由
       routes:
-        - id: cloud-auth
-          uri: http://localhost:8085
-          predicates:
-          - Path=/auth/**
-          filter:
-          - SwaggerHeaderFilter
-          - StripPrefix = 1
-        - id: cloud-order
-          uri: http://localhost:8086
-          predicates:
-          - Path=/order/**
-          filter:
-          - SwaggerHeaderFilter
-          - StripPrefix = 1
+      - id: oauth-server
+        # uri: lb://oauth-server
+        uri: http://localhost:8085
+        predicates:
+        - Path=/oauth-server/**
+        filter:
+        - SwaggerHeaderFilter
+        - StripPrefix = 1
+      - id: consume-service
+        # uri: lb://consume-service
+        uri: http://localhost:8083
+        predicates:
+        - Path=/consume-service/**
+        # - Path=/consume/**
+        filter:
+        - StripPrefix = 1
+      - id: order-service
+        # uri: lb://order-service
+        uri: http://localhost:8086
+        predicates:
+        - Path=/order-service/**
+        filter:
+        # - SwaggerHeaderFilter
+        - StripPrefix = 1
