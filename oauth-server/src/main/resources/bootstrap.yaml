@@ -2,7 +2,7 @@ server:
   port: 8085
 dubbo:
   scan:
-    base-packages: com.mint.oauth.service
+    base-packages: com.mint.oauth
   protocol:
     # dubbo 协议
     name: dubbo
@@ -10,7 +10,7 @@ dubbo:
     port: -1
   registry:
     # 挂载到 Spring Cloud 注册中心
-    address: spring-cloud://xx.xxx.xx.xxx:8885
+    address: spring-cloud://192.168.42.118:8885
 spring:
   application:
     name: oauth-server
@@ -21,11 +21,10 @@ spring:
     nacos:
       # Nacos 服务发现与注册配置
       discovery:
-        server-addr: xx.xxx.xx.xxx:8885
+        server-addr: 192.168.42.118:8885
       config:
-        server-addr: xx.xxx.xx.xxx:8885
+        server-addr: 192.168.42.118:8885
         file-extension: yaml
         group: DEFAULT_GROUP
         data-id: oauth-server.yaml
         refresh: true
-
