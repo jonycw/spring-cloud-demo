@@ -24,21 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class OauthController {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @GetMapping("/test/{id}")
-    public String getProduct(@PathVariable String id) {
-        //for debug
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info("product:{}",id);
-        return "product id : " + id;
-    }
-
-    @GetMapping("/login")
+    @GetMapping("/auth")
     public String getOrder() {
-
-
-        return "order id : ";
+        return "login auth : ";
     }
 
 

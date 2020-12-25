@@ -1,4 +1,4 @@
-package com.mint.oauth.config;
+package com.mint.order.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,8 +33,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                // 配置hello打头的路由需要安全认证
-                .antMatchers("/hello/**")
+                // 配置hello打头的路由需要安全认证，order无配置无需认证
+                .antMatchers("/order/**")
                 .authenticated()
                 .and().csrf().disable();
     }

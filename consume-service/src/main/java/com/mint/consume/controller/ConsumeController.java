@@ -23,9 +23,15 @@ public class ConsumeController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @GetMapping("/{a}/{b}")
-    public Integer get(@PathVariable Integer a, @PathVariable Integer b) {
-        logger.info("消费服务访问");
-        return a + b;
+    @GetMapping("/testA")
+    public String testA() {
+        logger.info("消费服务访问testA");
+        return "success testA";
+    }
+
+    @GetMapping("/testB")
+    public String testB() {
+        logger.info("消费服务访问testB");
+        return "success testB";
     }
 }

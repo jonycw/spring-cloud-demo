@@ -26,15 +26,14 @@ spring:
       routes:
       - id: oauth-server
         # uri: lb://oauth-server
-        uri: http://localhost:8085
+        uri: lb://oauth-server
         predicates:
         - Path=/oauth-server/**
         filter:
-        - SwaggerHeaderFilter
         - StripPrefix = 1
       - id: consume-service
         # uri: lb://consume-service
-        uri: http://localhost:8083
+        uri: lb://consume-service
         predicates:
         - Path=/consume-service/**
         # - Path=/consume/**
@@ -42,7 +41,7 @@ spring:
         - StripPrefix = 1
       - id: order-service
         # uri: lb://order-service
-        uri: http://localhost:8086
+        uri: lb://order-service
         predicates:
         - Path=/order-service/**
         filter:
