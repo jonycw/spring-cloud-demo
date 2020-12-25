@@ -1,14 +1,3 @@
-spring:
-  redis:
-    database: 19
-    host: r-uf60599885e88fe4pd.redis.rds.aliyuncs.com
-    password: njxes_151314
-    port: 6379
-    lettuce:
-      pool:
-        max-active: 50
-        max-idle: 30
-        min-idle: 30
 # actuator
 management:
   endpoints:
