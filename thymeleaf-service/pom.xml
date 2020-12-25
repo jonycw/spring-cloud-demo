@@ -30,4 +30,30 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>thymeleaf-service</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <resources>
+            <!-- 解决打包后发布静态资源无法访问的问题 -->
+            <resource>
+                <!-- 指定resources插件处理哪个目录下的资源文件 -->
+                <directory>${basedir}/src/main/resources/static</directory>
+                <!-- 需要将资源文件放到该目录下才能访问 -->
+                <targetPath>META-INF/static</targetPath>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
+
 </project>
