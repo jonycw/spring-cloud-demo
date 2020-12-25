@@ -1,6 +1,5 @@
-package com.mint.order.config;
+package com.mint.consume.config;
 
-import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -23,15 +22,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    @Bean(name = "cloud-order")
+    @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.mint.order.controller"))
+                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.mint.consume.controller"))
                 .build()
-                .groupName("order-service"); // 分组
+                .groupName("consume-service").enable(true);
     }
     /*
     .paths(Predicates.or(PathSelectors.ant("/user/add"),
@@ -43,7 +42,7 @@ public class SwaggerConfig {
                 //页面标题
                 .title("xes框架搭建 项目集成 Swagger 实例文档")
                 //创建人
-                .contact(new Contact("njxes", "http://localhost:8086/order/doc.html", ""))
+                .contact(new Contact("njxes", "http://www.baidu.com", ""))
                 //版本号
                 .version("API V 0.0.1")
                 //描述

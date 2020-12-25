@@ -24,18 +24,24 @@ public class TestController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @ApiOperation("文章列表")
-    @GetMapping("/{a}/{b}")
+    @GetMapping("/order/{a}/{b}")
     public Integer get(@PathVariable Integer a, @PathVariable Integer b) {
         logger.info("订单服务访问");
         return a + b;
     }
 
     @ApiOperation("文章列表1")
-    @PostMapping("/oauth/token")
-    public JSONObject oauth(String username,String password) {
+    @PostMapping("/order/token")
+    public JSONObject order(String username,String password) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("aa","aaaa");
         logger.info(jsonObject.toJSONString());
         return jsonObject;
+    }
+
+    @ApiOperation("文章列表1")
+    @PostMapping("/test/token")
+    public String test(String username,String password) {
+        return "test-token";
     }
 }

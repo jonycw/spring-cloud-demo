@@ -9,7 +9,7 @@ dubbo:
     address: spring-cloud://192.168.42.118:8885
 spring:
   application:
-    name: order-service
+    name: consume-service
   main:
     # Spring Boot 2.1 需要设定
     allow-bean-definition-overriding: true
@@ -21,6 +21,6 @@ spring:
       config:
         server-addr: 192.168.42.118:8885
         file-extension: yaml
-        group: DEFAULT_GROUP
-        data-id: order-service.yaml
+        group: CLOUD_DEMO
+        data-id: consume-service.yaml
         refresh: true

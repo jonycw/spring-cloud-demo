@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Api(tags = "consume-消费服务接口")
-@RequestMapping("/consume/")
+@RequestMapping("/consume")
 public class ConsumeController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
