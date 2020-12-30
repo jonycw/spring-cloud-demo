@@ -24,3 +24,13 @@ spring:
         group: CLOUD_DEMO
         data-id: consume-service.yaml
         refresh: true
+    sentinel:
+      transport:
+        #指定sentinel控制台的地址
+        dashboard: 192.168.42.118:8080
+        port: 8719
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
