@@ -68,7 +68,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
                 // 该客户端允许授权的范围
                 .scopes("all")
+                .autoApprove(false)
                 // false跳转到授权页面，true不跳转，直接发令牌
+                .and()
+                .withClient("client_2")
+                .secret(new BCryptPasswordEncoder().encode("123456"))
+                .authorizedGrantTypes("password", "refresh_token")
                 .autoApprove(false);
     }
 

@@ -40,9 +40,9 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 //页面标题
-                .title("xes框架搭建 项目集成 Swagger 实例文档")
+                .title("mint框架搭建 项目集成 Swagger 实例文档")
                 //创建人
-                .contact(new Contact("njxes", "http://www.baidu.com", ""))
+                .contact(new Contact("mint", "http://www.baidu.com", ""))
                 //版本号
                 .version("API V 0.0.1")
                 //描述
