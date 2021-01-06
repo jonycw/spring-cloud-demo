@@ -15,3 +15,5 @@ springCloud+gateway+security+oauth2+sentinel+nacos+redis+thymeleaf+shiro
 六、thymeleaf集成模块
 
 七、shiro权限管理模块
+
+八、微信api模块
