@@ -2,7 +2,7 @@
 
 springCloud+gateway+security+oauth2+sentinel+nacos+redis+thymeleaf+shiro
 
-一、base基础模块
+一、common-base基础模块
 
 二、授权模块服务
 
