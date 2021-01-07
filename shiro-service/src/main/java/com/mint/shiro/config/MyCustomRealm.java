@@ -9,6 +9,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -61,23 +62,28 @@ public class MyCustomRealm extends AuthorizingRealm {
         String username = (String) authenticationToken.getPrincipal();
         String password = new String((char[]) authenticationToken.getCredentials());
         log.info("认证方法开始:[current-username:{},current-password:{},password:{}]",authenticationToken.getPrincipal(),authenticationToken.getCredentials(),password);
-        //根据用户名从数据库获取密码
+        // 根据用户名从数据库获取密码
 //        UsersPo userNamePassword = userService.selectUserNamePassword(userName);
 //        String password = userNamePassword.getPassword();
 //        String salt = userNamePassword.getSalt();
         //对身份+证明的数据认证 这里模拟了一个数据源
         //如果是数据库 那么这里应该调用数据库判断用户名密码是否正确
-        if (!"admin".equals(username) || !"123456".equals(password)) {
-            log.info("账号或密码不正确");
+        if (!"admin".equals(username)|| !"123456".equals(password)) {
             throw new IncorrectCredentialsException("账号或密码不正确");
         }
-        //认证通过
+        // 模拟从数据获取密码
+        String MD5Pass = new SimpleHash("MD5", password, "abc", 2).toString();
+        // 认证通过
         UsersPo user = new UsersPo();
         user.setId(1L);//假设用户ID=1
         user.setUsername(username);
         user.setPassword(password);
-        //建立一个 SimpleAuthenticationInfo 认证模块，包括了身份】证明等信息
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password,getName());
+        user.setSalt("abc");
+        // 建立一个 SimpleAuthenticationInfo 认证模块，包括了身份】证明等信息 非加密配置情况下
+        // SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password,getName());
+        // 建立一个 SimpleAuthenticationInfo 认证模块，包括了身份】证明等信息 加密配置情况下
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, MD5Pass,getName());
+        info.setCredentialsSalt(ByteSource.Util.bytes("abc"));
         log.info("认证方法结束");
         return info;
 

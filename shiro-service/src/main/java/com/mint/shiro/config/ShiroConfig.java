@@ -1,5 +1,6 @@
 package com.mint.shiro.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -21,10 +22,12 @@ import java.util.Map;
  */
 
 @Configuration
+@Slf4j
 public class ShiroConfig {
 
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager securityManager) {
+        log.info("ShiroFilterFactoryBean方法开始");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 设置安全管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager);
@@ -49,10 +52,10 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         // 设置登录路由
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        // shiroFilterFactoryBean.setLoginUrl("/login");
         // 设置没授权路由
-        shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
-
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        log.info("ShiroFilterFactoryBean方法结束");
         return shiroFilterFactoryBean;
 
     }
@@ -68,8 +71,8 @@ public class ShiroConfig {
     public MyCustomRealm customRealm() {
         MyCustomRealm myCustomRealm = new MyCustomRealm();
         // 告诉realm,使用credentialsMatcher加密算法类来验证密文
-//        myCustomRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-//        myCustomRealm.setCachingEnabled(false);
+        myCustomRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        myCustomRealm.setCachingEnabled(false);
         return myCustomRealm;
     }
 
@@ -101,17 +104,18 @@ public class ShiroConfig {
         return authorizationAttributeSourceAdvisor;
     }
 
-//    //shiro 加密配置
-//    @Bean(name = "credentialsMatcher")
-//    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-//        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-//        // 散列算法:这里使用MD5算法;
-//        hashedCredentialsMatcher.setHashAlgorithmName("md5");
-//        // 散列的次数，比如散列两次，相当于 md5(md5(""));
-//        // hashedCredentialsMatcher.setHashIterations(2);
-//        // storedCredentialsHexEncoded默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码
-//        hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);
-//        return hashedCredentialsMatcher;
-//    }
+    // shiro加密配置
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        // 散列算法:这里使用MD5算法;
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        // 散列的次数，比如散列两次，相当于 md5(md5(""));
+        hashedCredentialsMatcher.setHashIterations(2);
+        // storedCredentialsHexEncoded默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码
+        hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);
+        return hashedCredentialsMatcher;
+    }
+
 }
 

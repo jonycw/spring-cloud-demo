@@ -6,10 +6,10 @@
 </head>
 <body>
 <div>
-    <input id="userName" name="userName" value="">
+    <input id="userName" name="userName" value="admin">
 </div>
 <div>
-    <input id="password" name="password" value="">
+    <input id="password" name="password" value="123456">
 </div>
 <div>
     <input type="button" id="btnSave"  value="登录">
@@ -31,10 +31,10 @@
                     console.log("Connection error");
                 },
                 success: function (data) {
-                    if (data.status == 0) {
+                    console.log(data)
+                    if (data.code == 200) {
                         window.location = "/index";
                         return false;
-
                     } else {
                         alert(data.message);
                     }

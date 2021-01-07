@@ -1,5 +1,7 @@
 package com.mint.shiro.controller;
 
+import com.mint.starter.common.ResultCode;
+import com.mint.starter.common.ResultUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -30,61 +32,63 @@ public class HomeIndexController {
 
     //shiro 认证成功后默认跳转页面
     @GetMapping("/index")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     @GetMapping("/403")
-    public String err403(){
+    public String err403() {
         return "403";
     }
-    /**
-     * 根据权限授权使用注解 @RequiresPermissions
-     * */
+
     @GetMapping("/article")
     @RequiresPermissions("app:article:article")
-    public String article(){
+    public String article() {
         return "article";
     }
 
-    /**
-     * 根据权限授权使用注解 @RequiresPermissions
-     * */
     @GetMapping("/setting")
     @RequiresPermissions("app:setting:setting")
-    public String setting(){
+    public String setting() {
         return "setting";
     }
+
     @GetMapping("/login")
-    public String login(){
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/login.jsp")
+    public String loginJsp() {
         return "login";
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public Object loginsubmit(String username,String password) {
+    public Object loginsubmit(String username, String password) {
         Map<String, Object> map = new HashMap<>();
-        log.info("登录请求入口:[username:{},password:{}]",username,password);
+        log.info("登录请求入口:[username:{},password:{}]", username, password);
         //把身份 useName 和 证明 password 封装成对象 UsernamePasswordToken
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         //获取当前的 subject
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
-            map.put("status", 0);
-            map.put("message", "登录成功");
-            return map;
-        } catch (AuthenticationException e) {
+            return ResultUtil.SUCCESS();
+        } catch (IncorrectCredentialsException e) {
+            log.error("账号或者密码输入有误~~");
             e.printStackTrace();
-            map.put("status", 1);
-            map.put("message", "用户名或密码错误");
-            return map;
+            return ResultUtil.ERROR(ResultCode.ACCOUNT_NOT_CORRECT);
+        } catch (AuthenticationException e) {
+            log.error("账号或者密码输入错误~~");
+            e.printStackTrace();
+            return ResultUtil.ERROR(ResultCode.ACCOUNT_NOT_CORRECT);
         }
     }
 
     @ApiOperation("未经授权无法访问此页面")
     @GetMapping("/noauth")
-    public String unauthorized(){
-        return "未经授权无法访问此页面";
+    public String unauthorized() {
+        return "setting";
     }
 }
