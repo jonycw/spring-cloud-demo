@@ -1,8 +1,9 @@
 server:
   port: 8088
 we-chat:
-  publicAppId: xxxxx
-  publicAppSecret: xxxxxxx
+  publicAppId: xxxx
+
+  publicAppSecret: xxxx
   # 公众号基本操作
   publicAccessToken: https://api.weixin.qq.com/cgi-bin/token
   # 公众号网页第三方授权登录
