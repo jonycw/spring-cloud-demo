@@ -162,6 +162,7 @@
         <module>jwt-test</module>
         <module>starter-common</module>
         <module>shiro-service</module>
+        <module>other-service</module>
     </modules>
 
 </project>

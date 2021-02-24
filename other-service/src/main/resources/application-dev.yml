@@ -1,0 +1,65 @@
+spring:
+  redis:
+    database: 16
+    host: zzzzz
+    password: xxxx
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 50
+        max-idle: 30
+        min-idle: 30
+  # 数据源配置
+  datasource:
+    # 连接池配置
+    druid:
+      source-one:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: njxes
+        password: NJxes0218
+        url: jdbc:mysql://xxxxxxx?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20
+      source-two:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: xxx
+        password: xxx
+        url: jdbc:mysql://xxxxxxx?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20
+  servlet:
+    multipart:
+      max-file-size: 8MB
+      max-request-size: 8MB
+mybatis-plus:
+  # 说明 扫描不出src目录下的，可扫描根目录下的。所以才有pom配置路径扫描src下的xml
+  # mapper-locations: classpath*:/com/xes/active/mapper/*Mapper.xml
+  # 注意：对应实体类的路径com.xxx.xxx.springboot.dal.model
+  type-aliases-package: com.mint.other.model.po
+  global-config:
+    db-config:
+      id-type: auto
+      #驼峰下划线转换
+      column-underline: true
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: mysql
+    refresh: false
+  configuration:
+    cache-enabled: false
+    # 是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
+    map-underscore-to-camel-case: true
+    # 如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+    call-setters-on-nulls: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 洞察计划配置
+temp:
+  temp1: aaa
+  temp2: bbb

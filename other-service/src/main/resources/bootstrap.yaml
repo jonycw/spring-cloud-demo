@@ -1,0 +1,31 @@
+server:
+  port: 8082
+dubbo:
+  scan:
+    base-packages: com.mint.other.service
+  protocol:
+    # dubbo 协议
+    name: dubbo
+    # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
+    port: -1
+  registry:
+    # 挂载到 Spring Cloud 注册中心
+    address: spring-cloud://xx.xxx.xxx.xxx:8885
+spring:
+  application:
+    name: other-service
+  main:
+    # Spring Boot 2.1 需要设定
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      # Nacos 服务发现与注册配置
+      discovery:
+        server-addr: xx.xxx.xxx.xxx:8885
+      config:
+        server-addr: xx.xxx.xxx.xxx:8885
+        file-extension: yaml
+        group: DEFAULT_GROUP
+        data-id: other-service.yaml
+        refresh: true
+

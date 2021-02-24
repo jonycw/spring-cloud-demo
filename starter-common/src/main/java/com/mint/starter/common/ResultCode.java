@@ -1,5 +1,6 @@
 package com.mint.starter.common;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -10,10 +11,9 @@ import lombok.Getter;
  */
 
 @Getter
+@AllArgsConstructor
 public enum ResultCode {
 
-
-    // 学生授权信息
     UN_PERMISSION(false,10,"没有权限访问~"),
     ACCOUNT_NOT_CORRECT(false,11,"账号或者密码输入有误~"),
 
@@ -24,17 +24,12 @@ public enum ResultCode {
 
 
     //操作是否成功
-    private boolean success;
+    final boolean success;
     //操作代码
-    private int code;
+    final int code;
     //提示信息
-    private String message;
+    final String message;
 
-    ResultCode(boolean success, int code, String message) {
-        this.success = success;
-        this.code = code;
-        this.message = message;
-    }
     public boolean success(){
         return success;
     }
@@ -44,4 +39,5 @@ public enum ResultCode {
     public String message(){
         return message;
     }
+
 }
