@@ -21,12 +21,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
-        <!-- spring jwt -->
-        <dependency>
-            <groupId>com.nimbusds</groupId>
-            <artifactId>nimbus-jose-jwt</artifactId>
-            <version>8.16</version>
-        </dependency>
         <!-- redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

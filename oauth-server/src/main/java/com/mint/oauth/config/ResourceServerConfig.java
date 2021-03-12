@@ -23,6 +23,12 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 
+    /**
+     * 配置资源访问的令牌方式
+     * @param resources
+     * @throws Exception
+     */
+    @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenServices(tokenServices());
     }
@@ -37,6 +43,19 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/hello/**")
                 .authenticated()
                 .and().csrf().disable();
+    }
+
+    /**
+     * 资源服务令牌解析服务
+     */
+    @Bean
+    @Primary
+    public ResourceServerTokenServices tokenServices() {
+        RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
+        remoteTokenServices.setCheckTokenEndpointUrl("http://localhost:8085/oauth/check_token");
+        remoteTokenServices.setClientId("client_1");
+        remoteTokenServices.setClientSecret("123456");
+        return remoteTokenServices;
     }
 
     /**
@@ -57,18 +76,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         return accessTokenConverter;
     }
 
-    /**
-     * 资源服务令牌解析服务
-     */
-    @Bean
-    @Primary
-    public ResourceServerTokenServices tokenServices() {
-        RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
-        remoteTokenServices.setCheckTokenEndpointUrl("http://localhost:8085/oauth/check_token");
-        remoteTokenServices.setClientId("client_1");
-        remoteTokenServices.setClientSecret("123456");
-        return remoteTokenServices;
-    }
 
 }
 

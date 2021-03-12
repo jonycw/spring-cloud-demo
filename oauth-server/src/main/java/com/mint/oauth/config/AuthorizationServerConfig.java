@@ -31,25 +31,19 @@ import java.util.Arrays;
 @AllArgsConstructor
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    /**
-     * 令牌持久化配置
-     */
+    // 令牌持久化配置
     private final TokenStore tokenStore;
-    /**
-     * 客户端详情服务
-     */
+
+    // 客户端详情服务
     private final ClientDetailsService clientDetailsService;
-    /**
-     * 认证管理器
-     */
+
+    // 认证管理器
     private final AuthenticationManager authenticationManager;
-    /**
-     * 授权码服务
-     */
+
+    // 授权码服务
     private final AuthorizationCodeServices authorizationCodeServices;
-    /**
-     * jwtToken解析器
-     */
+
+    // jwtToken解析器
     private final JwtAccessTokenConverter jwtAccessTokenConverter;
 
     /**
@@ -57,9 +51,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients
-                // 使用本地内存存储
-                .inMemory()
+
+        clients.// 使用本地内存存储
+                inMemory()
                 // 客户端id
                 .withClient("client_1")
                 // 客户端密码
@@ -68,13 +62,25 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")
                 // 该客户端允许授权的范围
                 .scopes("all")
-                .autoApprove(false)
                 // false跳转到授权页面，true不跳转，直接发令牌
-                .and()
-                .withClient("client_2")
-                .secret(new BCryptPasswordEncoder().encode("123456"))
-                .authorizedGrantTypes("password", "refresh_token")
                 .autoApprove(false);
+
+        // 配置两个客户端，一个用于password认证一个用于client认证
+        // String finalSecret = "{bcrypt}" + new BCryptPasswordEncoder().encode("123456");
+//        clients.inMemory().withClient("client_1")
+//                .resourceIds("testId")
+//                // 认证方式 client 认证
+//                .authorizedGrantTypes("client_credentials", "refresh_token")
+//                .scopes("select")
+//                .authorities("oauth2")
+//                .secret(finalSecret)
+//                .and().withClient("client_2")
+//                .resourceIds("testId")
+//                // 认证方式 密码 认证
+//                .authorizedGrantTypes("password", "refresh_token")
+//                .scopes("server")
+//                .authorities("oauth2")
+//                .secret(finalSecret);
     }
 
     /**
@@ -120,9 +126,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter));
         tokenServices.setTokenEnhancer(tokenEnhancerChain);
         // 令牌默认有效期2小时
-        tokenServices.setAccessTokenValiditySeconds(7200);
+        tokenServices.setAccessTokenValiditySeconds(60 * 60 * 2);
         // 刷新令牌默认有效期3天
-        tokenServices.setRefreshTokenValiditySeconds(259200);
+        tokenServices.setRefreshTokenValiditySeconds(60 * 60 * 24 * 3);
         return tokenServices;
     }
 

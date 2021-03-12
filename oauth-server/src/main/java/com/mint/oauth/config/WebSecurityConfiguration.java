@@ -22,7 +22,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 /**
  * @Author: cw
  * @Date: 2020/12/24 15:07
- * @Description: web层次
+ * @Description: Security 安全配置
  */
 @EnableWebSecurity
 @Configuration
@@ -57,19 +57,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new InMemoryTokenStore();
     }
     /**
-     * 密码加密
+     * 密码加密器
      * @return
      */
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     /**
-     *
      * 	 认证管理器配置
      *
-     * 不定义没有password grant_type,密码模式需要AuthenticationManager支持
+     *   不定义没有 password grant_type,密码模式需要AuthenticationManager支持
      * @return
      * @throws Exception
      */
@@ -126,21 +125,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         converter.setSigningKey("JoNyCw");
         return converter;
     }
-
-
-    /**
-     * 授权角色和账号处理
-     * @param auth
-     * @throws Exception
-     */
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .passwordEncoder(passwordEncoder())
-//                .withUser("root").password(new BCryptPasswordEncoder().encode("123456")).roles("root")
-//                .and()
-//                .withUser("chinoukin").password(new BCryptPasswordEncoder().encode("123456")).roles("manager");
-//    }
 
 }
 

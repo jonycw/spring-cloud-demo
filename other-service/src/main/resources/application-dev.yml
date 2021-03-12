@@ -37,7 +37,7 @@ spring:
       max-request-size: 8MB
 mybatis-plus:
   # 说明 扫描不出src目录下的，可扫描根目录下的。所以才有pom配置路径扫描src下的xml
-  # mapper-locations: classpath*:/com/xes/active/mapper/*Mapper.xml
+  # mapper-locations: classpath*:/com/mint/other/mapper/*Mapper.xml
   # 注意：对应实体类的路径com.xxx.xxx.springboot.dal.model
   type-aliases-package: com.mint.other.model.po
   global-config:
@@ -59,7 +59,23 @@ mybatis-plus:
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# 洞察计划配置
+# 测试参数信息配置
 temp:
   temp1: aaa
   temp2: bbb
+
+
+# 阿里云相关信息配置
+ali-cloud:
+  # 产品名称:云通信短信API产品,开发者无需替换
+  product: xxx
+  # 产品域名,开发者无需替换
+  domain: xxxxxxx
+  accessKeyId: xxxxxxxx
+  accessKeySecret: xxxxxxxx
+  # 短信模板1
+  txTemplateCode: xxxxxxxx
+  # 短信模板2
+  aqyTemplateCode: xxxxxxxx
+  autumnGroupId: xxxxxxxx
+  nameSrvAddr: xxxxxxxx

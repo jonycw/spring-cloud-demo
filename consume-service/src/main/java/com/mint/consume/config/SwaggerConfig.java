@@ -30,6 +30,7 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .apis(RequestHandlerSelectors.basePackage("com.mint.consume.controller"))
                 .build()
+                .apiInfo(apiInfo())
                 .groupName("consume-service").enable(true);
     }
     /*

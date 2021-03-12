@@ -55,6 +55,12 @@
                 <artifactId>starter-common</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.mint</groupId>
+                <artifactId>other-service</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
             <!-- 注入spring boot type和import使这些依赖可以分类并清晰的管理 import scope只能在dependencyManagement中的type是pom的情况下使用-->
             <!-- 注入spring-boot基础依赖 -->
             <dependency>

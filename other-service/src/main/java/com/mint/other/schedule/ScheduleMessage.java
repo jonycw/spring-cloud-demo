@@ -19,7 +19,7 @@ import java.util.List;
 public class ScheduleMessage {
 
     /**
-     * 每30秒模板消息发送
+     * 每30分模板消息发送
      */
     @Scheduled(cron = "* */30 * * * ?")
     public void sendMessage() {
